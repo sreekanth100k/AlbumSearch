@@ -8,8 +8,14 @@
         android:layout_width="match_parent"
         android:layout_height="10dip"
         android:background="@android:color/white"/>
+
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="0dip"
+        android:layout_weight="1"
         android:orientation="vertical"
         android:gravity="center"
         android:layout_height="wrap_content">
@@ -43,71 +49,23 @@
         android:id="@+id/id_collection_censored_name_tv"
         android:layout_height="wrap_content"/>
 
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:id="@+id/id_trackCensoredName_tv"-->
-<!--        android:layout_height="wrap_content"/>-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/id_collection_price_tv"
+        android:layout_height="wrap_content"/>
 
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:id="@+id/id_artistViewUrl_tv"-->
-<!--        android:layout_height="wrap_content"/>-->
+   <TextView
+       android:layout_width="wrap_content"
+    android:id="@+id/id_releaseDate_tv"
+    android:layout_height="wrap_content"/>
 
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:id="@+id/id_collectionViewUrl_tv"-->
-<!--        android:layout_height="wrap_content"/>-->
-
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:id="@+id/id_track_view_url_tv"-->
-<!--        android:layout_height="wrap_content"/>-->
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:id="@+id/id_preview_url_tv"-->
-<!--        android:layout_height="wrap_content"/>-->
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:id="@+id/artworkUrl30_tv"-->
-<!--        android:layout_height="wrap_content"/>-->
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:id="@+id/id_artworkUrl_60_tv"-->
-<!--        android:layout_height="wrap_content"/>-->
-
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:id="@+id/id_artworkUrl_100_tv"-->
-<!--        android:layout_height="wrap_content"/>-->
-
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:id="@+id/id_collection_price_tv"-->
-<!--        android:layout_height="wrap_content"/>-->
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:id="@+id/id_track_price_tv"-->
-<!--        android:layout_height="wrap_content"/>-->
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:id="@+id/id_releaseDate_tv"-->
-<!--        android:layout_height="wrap_content"/>-->
-
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:id="@+id/id_collectionExplicitness_tv"-->
-<!--        android:layout_height="wrap_content"/>-->
-
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:id="@+id/id_track_explicitness_tv"-->
-<!--        android:layout_height="wrap_content"/>-->
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:id="@+id/id_country_tv"-->
-<!--        android:layout_height="wrap_content"/>-->
 
 </LinearLayout>
+        <ImageView
+            android:layout_width="100dip"
+            android:id="@+id/id_thumb_nail"
+            android:layout_height="fill_parent"/>
+    </LinearLayout>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="10dip"
