@@ -13,8 +13,12 @@ import com.bumptech.glide.Glide;
 
 import org.w3c.dom.Text;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultHolder> {
     private List<Results> results = new ArrayList<>();
@@ -36,10 +40,14 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultHo
         holder.trackNameTv.setText("Track Name:"+ result.trackName);
         holder.collectionNameTv.setText("Collection Name:"+result.collectionName);
         holder.collectionPriceTv.setText("Collection Price:"+result.collectionPrice);
-        holder.releaseDateTv.setText("Release Date:"+result.releaseDate);
+        try {
+            holder.releaseDateTv.setText("Release Date:"+convertToNewFormat(result.releaseDate));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
 
-            Glide.with(holder.thumbNailIv)
+        Glide.with(holder.thumbNailIv)
                     .load(result.artworkUrl100)
                     .into(holder.thumbNailIv);
     }
@@ -53,6 +61,15 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultHo
         this.results = results;
         notifyDataSetChanged();
 
+    }
+
+    public static String convertToNewFormat(String dateStr) throws ParseException {
+        TimeZone utc = TimeZone.getTimeZone("UTC");
+        SimpleDateFormat sourceFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        SimpleDateFormat destFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        sourceFormat.setTimeZone(utc);
+        Date convertedDate = sourceFormat.parse(dateStr);
+        return destFormat.format(convertedDate);
     }
 
     class ResultHolder extends RecyclerView.ViewHolder {
