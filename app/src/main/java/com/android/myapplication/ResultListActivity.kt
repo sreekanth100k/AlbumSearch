@@ -1,9 +1,12 @@
 package com.android.myapplication;
 
+import android.R
+import android.R.attr.country
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
@@ -12,7 +15,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import java.lang.Exception
 
 
 public class ResultListActivity:AppCompatActivity() {
@@ -30,6 +32,7 @@ public class ResultListActivity:AppCompatActivity() {
     private var mReleaseDate:String? = ""
     private lateinit  var mIdEmptyTv:TextView
     private lateinit var mSearchIv:ImageView;
+    private lateinit var  mSpinnerItems: ArrayList<String>;
 
 
 
@@ -45,16 +48,30 @@ public class ResultListActivity:AppCompatActivity() {
         mCollectionPrice        =   intent.getStringExtra("CollectionPrice");
         mReleaseDate            =   intent.getStringExtra("ReleaseDate");
 
+        mSpinnerItems           =   ArrayList<String>()
+        mSpinnerItems.add("Collection Name");
+        mSpinnerItems.add("track name");
+        mSpinnerItems.add("artist name");
+        mSpinnerItems.add("collection price Descending");
+
         setContentView(com.android.myapplication.R.layout.result_list_activity)
 
-        mRecyclerView = findViewById(com.android.myapplication.R.id.id_rv)
-        mIdEmptyTv              =   findViewById(R.id.id_empty_tv);
+        mRecyclerView           =   findViewById(com.android.myapplication.R.id.id_rv)
+        mIdEmptyTv              =   findViewById(com.android.myapplication.R.id.id_empty_tv);
 
-        mSearchIv               =   findViewById(R.id.id_search_icon_iv);
+        mSearchIv               =   findViewById(com.android.myapplication.R.id.id_search_icon_iv);
+
+        mSpinner                =   findViewById(com.android.myapplication.R.id.id_spinner);
+
+
+        val arrayAdapter: ArrayAdapter<String> = ArrayAdapter<String>(this, com.android.myapplication.R.layout.my_spinner_layout, mSpinnerItems)
+        arrayAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
+
+        mSpinner?.adapter = arrayAdapter
 
         mSearchIv.setOnClickListener(View.OnClickListener {
             val intent = Intent(this@ResultListActivity, AlbumSearchActivity::class.java)
-            startActivityForResult(intent,1000)
+            startActivityForResult(intent, 1000)
         })
 
         mRecyclerView?.layoutManager = LinearLayoutManager(this.applicationContext);
@@ -66,37 +83,35 @@ public class ResultListActivity:AppCompatActivity() {
         mViewModel!!.init()
         mViewModel!!.resultsLiveData.observe(this, Observer<ArrayList<Results>>() {
 
-            var matchingResults:ArrayList<Results>  = ArrayList()
+            var matchingResults: ArrayList<Results> = ArrayList()
             if (it != null) {
 
-                for(i in 0..it.size-1){
-                    var results:Results = it.get(i)
+                for (i in 0..it.size - 1) {
+                    var results: Results = it.get(i)
 
-                        try {
-                            var collectionName: String? = results.collectionName;
-                        }catch (e:Exception){
-                            Log.e("","");
-                        }
+                    try {
+                        var collectionName: String? = results.collectionName;
+                    } catch (e: Exception) {
+                        Log.e("", "");
+                    }
 
-                        try{
-                            var collectionPrice: String? = results.collectionPrice;
-                        }catch (e:Exception){
-                            Log.e("","");
-                        }
+                    try {
+                        var collectionPrice: String? = results.collectionPrice;
+                    } catch (e: Exception) {
+                        Log.e("", "");
+                    }
                     try {
 
                         var trackName: String? = results.trackName;
-                    }catch (e:Exception){
-                    Log.e("","");
-                }
+                    } catch (e: Exception) {
+                        Log.e("", "");
+                    }
 
                     try {
                         var releaseDate: String? = results.releaseDate;
-                    }catch (e:Exception){
-                    Log.e("","");
-                }
-
-
+                    } catch (e: Exception) {
+                        Log.e("", "");
+                    }
 
 
 //                    if (doesCollectionNameMatch(collectionName)) {
@@ -130,7 +145,7 @@ public class ResultListActivity:AppCompatActivity() {
         mViewModel?.fetchApiResponse()
     }
 
-    fun doesCollectionNameMatch(collectionName:String):Boolean{
+    fun doesCollectionNameMatch(collectionName: String):Boolean{
         if(collectionName==null){
             return false;
         }
@@ -145,7 +160,7 @@ public class ResultListActivity:AppCompatActivity() {
         return false;
     }
 
-    fun doesCollectionPriceMatch(collectionPrice:String):Boolean{
+    fun doesCollectionPriceMatch(collectionPrice: String):Boolean{
         if(collectionPrice == null){
             return false;
         }
@@ -160,7 +175,7 @@ public class ResultListActivity:AppCompatActivity() {
         return false;
     }
 
-    fun doesTrackNameMatch(trackName:String):Boolean{
+    fun doesTrackNameMatch(trackName: String):Boolean{
         if(trackName==null){
             return false;
         }
@@ -175,7 +190,7 @@ public class ResultListActivity:AppCompatActivity() {
         return false;
     }
 
-    fun doesReleaseDateMatch(releaseDate:String):Boolean{
+    fun doesReleaseDateMatch(releaseDate: String):Boolean{
         if(releaseDate==null){
             return false;
         }
