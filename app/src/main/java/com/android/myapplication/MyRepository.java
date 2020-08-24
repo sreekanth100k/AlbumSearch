@@ -106,7 +106,7 @@ class MyRepository {
 
             // for comparison
             String releaseDate1 = results.getReleaseDate();
-            String releaseDate2 = results.getReleaseDate();
+            String releaseDate2 = t1.getReleaseDate();
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX");
             boolean isDate1BeforeDate2 = false;

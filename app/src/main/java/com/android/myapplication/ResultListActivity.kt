@@ -41,7 +41,7 @@ public class ResultListActivity:AppCompatActivity() {
         mCollectionName         =   intent.getStringExtra("CollectionName");
 
         mCollectionPrice        =   intent.getStringExtra("CollectionPrice");
-        mReleaseDate            = intent.getStringExtra("ReleaseDate");
+        mReleaseDate            =   intent.getStringExtra("ReleaseDate");
 
         setContentView(com.android.myapplication.R.layout.result_list_activity)
 

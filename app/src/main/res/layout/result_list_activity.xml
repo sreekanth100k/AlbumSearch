@@ -25,6 +25,8 @@
 <!--                    android:layout_height="wrap_content"/>-->
 <!--        </LinearLayout>-->
 
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/id_rv"
             android:layout_width="fill_parent"
