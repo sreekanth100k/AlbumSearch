@@ -25,7 +25,34 @@
 <!--                    android:layout_height="wrap_content"/>-->
 <!--        </LinearLayout>-->
 
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:orientation="horizontal"
+            android:layout_height="50dip">
+                <!--<TextView
+                    android:layout_width="wrap_content"
+                    android:text="Search"
+                    android:id="@+id/id_search_lable_tv"
+                    android:gravity="center"
+                    android:layout_height="fill_parent"/>-->
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:id="@+id/id_search_icon_iv"
+                    android:background="@android:drawable/ic_search_category_default"
+                    android:layout_height="50dip"/>
 
+                <View
+                    android:layout_width="0dip"
+                    android:layout_weight="1"
+                    android:layout_height="fill_parent"/>
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="0dip"
+                    android:id="@+id/id_spinner"/>
+
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/id_rv"

@@ -32,11 +32,11 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultHo
     public void onBindViewHolder(@NonNull ResultHolder holder, int position) {
         Results result = results.get(position);
 
-        holder.artistNameTv.setText(result.artistName);
-        holder.trackNameTv.setText(result.trackName);
-        holder.collectionNameTv.setText(result.collectionName);
-        holder.collectionPriceTv.setText(result.collectionPrice);
-        holder.releaseDateTv.setText(result.releaseDate);
+        holder.artistNameTv.setText("Artist Name:"+ result.artistName);
+        holder.trackNameTv.setText("Track Name:"+ result.trackName);
+        holder.collectionNameTv.setText("Collection Name:"+result.collectionName);
+        holder.collectionPriceTv.setText("Collection Price:"+result.collectionPrice);
+        holder.releaseDateTv.setText("Release Date:"+result.releaseDate);
 
 
             Glide.with(holder.thumbNailIv)

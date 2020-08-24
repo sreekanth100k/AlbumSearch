@@ -67,17 +67,22 @@ class MyRepository {
 
         String resultCount           =  response.body().resultCount;
         ArrayList<Results> results   =  response.body().results;
-        ArrayList<Results> resultsAfterTrackNameDupRemoval = new ArrayList();
+        ArrayList<Results> resultsAfterTrackNameDupRemoval = new ArrayList<Results>();
         //Trackname#
         //Remove duplicate data by Trackname#
         if (results != null) {
-            for(int i=0;i<results.size()-1;i++){
-                Results resultObj  = results.get(i);
-                Boolean isDuplicate = false;
-                for(int j= 0;j<resultsAfterTrackNameDupRemoval.size()-1;j++){
+            for(int i=0;i<results.size();i++){
+                Results resultObj   = results.get(i);
+                boolean isDuplicate = false;
+                for(int j= 0;j<resultsAfterTrackNameDupRemoval.size();j++){
                     try {
+                        Log.d("Before trackname1",resultsAfterTrackNameDupRemoval.get(j).trackName);
+                        Log.d("Before trackname2",resultObj.trackName);
                         if (resultsAfterTrackNameDupRemoval.get(j).trackName.equals(resultObj.trackName)) {
                             //Dont add, duplicate entry...
+                            Log.d("After trackname1",resultsAfterTrackNameDupRemoval.get(j).trackName);
+                            Log.d("After trackname2",resultObj.trackName);
+
                             isDuplicate = true;
                         }
                     }catch (Exception e){

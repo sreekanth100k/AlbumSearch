@@ -1,7 +1,10 @@
 package com.android.myapplication;
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -26,8 +29,7 @@ public class ResultListActivity:AppCompatActivity() {
     private var mCollectionPrice:String? =""
     private var mReleaseDate:String? = ""
     private lateinit  var mIdEmptyTv:TextView
-
-
+    private lateinit var mSearchIv:ImageView;
 
 
 
@@ -47,6 +49,13 @@ public class ResultListActivity:AppCompatActivity() {
 
         mRecyclerView = findViewById(com.android.myapplication.R.id.id_rv)
         mIdEmptyTv              =   findViewById(R.id.id_empty_tv);
+
+        mSearchIv               =   findViewById(R.id.id_search_icon_iv);
+
+        mSearchIv.setOnClickListener(View.OnClickListener {
+            val intent = Intent(this@ResultListActivity, AlbumSearchActivity::class.java)
+            startActivityForResult(intent,1000)
+        })
 
         mRecyclerView?.layoutManager = LinearLayoutManager(this.applicationContext);
 
