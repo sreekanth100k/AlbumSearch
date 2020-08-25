@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -80,8 +81,9 @@ public class ResultListActivity:AppCompatActivity() {
 
         mViewModel = ViewModelProvider(this).get(MyViewModel::class.java)
 
-        mViewModel!!.init()
+        mViewModel!!.init(applicationContext,this)
         mViewModel!!.resultsLiveData.observe(this, Observer<ArrayList<Results>>() {
+
 
             var matchingResults: ArrayList<Results> = ArrayList()
             if (it != null) {

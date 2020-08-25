@@ -61,20 +61,6 @@ public class AlbumSearchActivity extends Activity {
                                       }
         );
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
 

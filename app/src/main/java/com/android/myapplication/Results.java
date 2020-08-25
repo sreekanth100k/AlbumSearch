@@ -1,9 +1,24 @@
 package com.android.myapplication;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.room.Entity;
+import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Results {
+import java.io.Serializable;
+
+@Entity
+public class Results implements Serializable {
+     @NonNull
+     @Expose
+     @PrimaryKey
+     @SerializedName("index")
+     Integer index;
      @SerializedName("wrapperType")
      @Expose
      String wrapperType;
@@ -355,5 +370,14 @@ public class Results {
 
      public void setIsStreamable(String isStreamable) {
           this.isStreamable = isStreamable;
+     }
+
+     @NonNull
+     public Integer getIndex() {
+          return index;
+     }
+
+     public void setIndex(@NonNull Integer index) {
+          this.index = index;
      }
 }

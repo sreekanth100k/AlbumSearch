@@ -87,7 +87,7 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultHo
             collectionNameTv        =   itemView.findViewById(R.id.id_collection_name_tv);
             trackNameTv             =   itemView.findViewById(R.id.id_track_name_tv);
             collectionPriceTv       =   itemView.findViewById(R.id.id_collection_price_tv);
-             releaseDateTv           =   itemView.findViewById(R.id.id_releaseDate_tv);
+            releaseDateTv           =   itemView.findViewById(R.id.id_releaseDate_tv);
             thumbNailIv             =   itemView.findViewById(R.id.id_thumb_nail);
         }
     }
