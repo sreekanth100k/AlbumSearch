@@ -1,17 +1,15 @@
 package com.android.myapplication;
 
 import android.R
-import android.R.attr.country
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.ImageView
-import android.widget.Spinner
-import android.widget.TextView
+import android.widget.*
+import android.widget.AdapterView.OnItemSelectedListener
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -70,6 +68,73 @@ public class ResultListActivity:AppCompatActivity() {
 
         mSpinner?.adapter = arrayAdapter
 
+        mSpinner?.setOnItemSelectedListener(object : OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View, position: Int, id: Long) {
+                if (position == 0) {
+                    //Collection Name..
+                    var myRepository:MyRepository =  MyRepository(applicationContext,view.context);
+                    var lifeCycleOwner: LifecycleOwner = view.context as LifecycleOwner;
+                    myRepository.getDbInstance().resultsDAOAccess().fetchAllResultsSortedByCollectionName().observe(lifeCycleOwner, Observer<List<Results?>> { results ->
+                        val resultArrayList: java.util.ArrayList<Results?> = java.util.ArrayList<Results?>(results.size)
+                        resultArrayList.addAll(results)
+
+                        var resultsAdapter: ResultsAdapter = ResultsAdapter();
+                        resultsAdapter.setResults(resultArrayList);
+                        mRecyclerView?.adapter = resultsAdapter
+                        mRecyclerView?.invalidate()
+                        mRecyclerView?.adapter?.notifyDataSetChanged()
+                    })
+                } else if (position == 1) {
+                    // track name...
+                    var myRepository:MyRepository =  MyRepository(applicationContext,view.context);
+                    var lifeCycleOwner: LifecycleOwner = view.context as LifecycleOwner;
+                    myRepository.getDbInstance().resultsDAOAccess().fetchAllResultsSortedByTrackName().observe(lifeCycleOwner, Observer<List<Results?>> { results ->
+                        val resultArrayList: java.util.ArrayList<Results?> = java.util.ArrayList<Results?>(results.size)
+                        resultArrayList.addAll(results)
+
+                        var resultsAdapter: ResultsAdapter = ResultsAdapter();
+                        resultsAdapter.setResults(resultArrayList);
+                        mRecyclerView?.adapter = resultsAdapter
+                        mRecyclerView?.invalidate()
+                        mRecyclerView?.adapter?.notifyDataSetChanged()
+                    })
+                } else if (position == 2) {
+                    //artist name..
+                    var myRepository:MyRepository =  MyRepository(applicationContext,view.context);
+                    var lifeCycleOwner: LifecycleOwner = view.context as LifecycleOwner;
+                    myRepository.getDbInstance().resultsDAOAccess().fetchAllResultsSortedByArtistName().observe(lifeCycleOwner, Observer<List<Results?>> { results ->
+                        val resultArrayList: java.util.ArrayList<Results?> = java.util.ArrayList<Results?>(results.size)
+                        resultArrayList.addAll(results)
+
+                        var resultsAdapter: ResultsAdapter = ResultsAdapter();
+                        resultsAdapter.setResults(resultArrayList);
+                        mRecyclerView?.adapter = resultsAdapter
+                        mRecyclerView?.invalidate()
+                        mRecyclerView?.adapter?.notifyDataSetChanged()
+                    })
+
+                } else if (position == 3) {
+                    //collection price descending..
+                    var myRepository:MyRepository =  MyRepository(applicationContext,view.context);
+                    var lifeCycleOwner: LifecycleOwner = view.context as LifecycleOwner;
+                    myRepository.getDbInstance().resultsDAOAccess().fetchAllResultsSortedByCollectionPriceDescending().observe(lifeCycleOwner, Observer<List<Results?>> { results ->
+                        val resultArrayList: java.util.ArrayList<Results?> = java.util.ArrayList<Results?>(results.size)
+                        resultArrayList.addAll(results)
+
+                        var resultsAdapter: ResultsAdapter = ResultsAdapter();
+                        resultsAdapter.setResults(resultArrayList);
+                        mRecyclerView?.adapter = resultsAdapter
+                        mRecyclerView?.invalidate()
+                        mRecyclerView?.adapter?.notifyDataSetChanged()
+                    })
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+        })
+
         mSearchIv.setOnClickListener(View.OnClickListener {
             val intent = Intent(this@ResultListActivity, AlbumSearchActivity::class.java)
             startActivityForResult(intent, 1000)
@@ -81,7 +146,7 @@ public class ResultListActivity:AppCompatActivity() {
 
         mViewModel = ViewModelProvider(this).get(MyViewModel::class.java)
 
-        mViewModel!!.init(applicationContext,this)
+        mViewModel!!.init(applicationContext, this)
         mViewModel!!.resultsLiveData.observe(this, Observer<ArrayList<Results>>() {
 
 
