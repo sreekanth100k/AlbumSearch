@@ -1,6 +1,7 @@
 package com.android.myapplication;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.provider.ContactsContract;
@@ -37,6 +38,7 @@ class MyRepository {
     private String DB_NAME                              =   "db_results";
     private Context mContext                            =   null;
     private Context mActivityContext                    =   null;
+    ProgressDialog mDialog                              =   null;
 
 
     MutableLiveData<ArrayList<Results>> getResponseLiveData() {
@@ -80,13 +82,20 @@ class MyRepository {
 
     }
 
-
     void fetchApiResponse(){
+
+//
+//        mDialog = new ProgressDialog(mContext);
+//        mDialog.setMessage("please wait...");
+//        mDialog.show();
+
+
 
         apiService.fetchApiResponse().enqueue(new Callback<TestResponse>() {
             @Override
             public void onResponse(Call<TestResponse> call, Response<TestResponse> response) {
                 Log.d("onResponse",response.body().toString());
+//                mDialog.dismiss();
 
                 decodeResponseAndDoNecessaryActions(response);
             }
@@ -95,6 +104,17 @@ class MyRepository {
             public void onFailure(Call<TestResponse> call, Throwable t) {
                 Log.d("onFailure","");
 
+//                mDialog.dismiss();
+
+                getDbInstance().resultsDAOAccess().fetchAllResults().observe((LifecycleOwner) mActivityContext, new Observer<List<Results>>(){
+                    @Override
+                    public void onChanged(List<Results> results) {
+                        ArrayList<Results> resultArrayList = new ArrayList(results.size());
+                        resultArrayList.addAll(results);
+
+                        responseLiveData.postValue(resultArrayList);
+                    }
+                });
             }
         });
     }
@@ -147,20 +167,9 @@ class MyRepository {
                 myRepositoryObj.insertTask(resultsAfterTrackNameDupRemoval.get(i));
             }
 
-            LiveData<List<Results>> listOfResults   = myRepositoryObj.resultsDataBase.resultsDAOAccess().fetchAllResults();
-            List<Results> resultsList               =  listOfResults.getValue();
-
-            myRepositoryObj.getDbInstance().resultsDAOAccess().fetchAllResults().observe((LifecycleOwner) mActivityContext, new Observer<List<Results>>(){
-                        @Override
-                        public void onChanged(List<Results> results) {
-                            Log.d("dummy log","dummy");
-                        }
-                    });
-
+            responseLiveData.postValue(resultsAfterTrackNameDupRemoval);
 
             Log.d("nil","nil");
-
-
         }
     }
 
