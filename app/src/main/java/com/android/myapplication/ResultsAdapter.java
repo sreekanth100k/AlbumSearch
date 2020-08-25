@@ -36,6 +36,16 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultHo
     }
 
     @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
+    @Override
     public void onBindViewHolder(@NonNull ResultHolder holder, int position) {
         Results result = results.get(position);
 
@@ -48,10 +58,13 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultHo
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+        holder.isInCartCb.setOnCheckedChangeListener(null);
+
         holder.isInCartCb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                results.get(position).setInCart(b);
+                result.setInCart(b);
             }
         });
 
@@ -59,10 +72,12 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultHo
                     .load(result.artworkUrl100)
                     .into(holder.thumbNailIv);
 
-        if(results.get(position).getInCart()){
-            holder.isInCartCb.setChecked(true);
-        }else{
-            holder.isInCartCb.setChecked(false);
+        try{
+
+                holder.isInCartCb.setChecked(result.isInCart);
+
+        }catch (Exception e){
+
         }
     }
 
