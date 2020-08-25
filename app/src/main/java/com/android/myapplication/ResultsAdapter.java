@@ -3,6 +3,8 @@ package com.android.myapplication;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +24,7 @@ import java.util.TimeZone;
 
 public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultHolder> {
     private List<Results> results = new ArrayList<>();
+
 
     @NonNull
     @Override
@@ -45,11 +48,22 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultHo
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
+        holder.isInCartCb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                results.get(position).setInCart(b);
+            }
+        });
 
         Glide.with(holder.thumbNailIv)
                     .load(result.artworkUrl100)
                     .into(holder.thumbNailIv);
+
+        if(results.get(position).getInCart()){
+            holder.isInCartCb.setChecked(true);
+        }else{
+            holder.isInCartCb.setChecked(false);
+        }
     }
 
     @Override
@@ -79,6 +93,7 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultHo
         private TextView collectionPriceTv;
         private TextView releaseDateTv;
         private ImageView thumbNailIv;
+        private CheckBox isInCartCb;
 
         public ResultHolder(@NonNull View itemView) {
             super(itemView);
@@ -89,6 +104,7 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultHo
             collectionPriceTv       =   itemView.findViewById(R.id.id_collection_price_tv);
             releaseDateTv           =   itemView.findViewById(R.id.id_releaseDate_tv);
             thumbNailIv             =   itemView.findViewById(R.id.id_thumb_nail);
+            isInCartCb              =   itemView.findViewById(R.id.id_cb);
         }
     }
 }

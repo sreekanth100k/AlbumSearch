@@ -115,6 +115,9 @@ public class Results implements Serializable {
      @SerializedName("isStreamable")
      @Expose
      String isStreamable;
+     @SerializedName("isInCart")
+     @Expose
+     Boolean isInCart;
 
      public String getWrapperType() {
           return wrapperType;
@@ -379,5 +382,13 @@ public class Results implements Serializable {
 
      public void setIndex(@NonNull Integer index) {
           this.index = index;
+     }
+
+     public Boolean getInCart() {
+          return isInCart;
+     }
+
+     public void setInCart(Boolean inCart) {
+          isInCart = inCart;
      }
 }
