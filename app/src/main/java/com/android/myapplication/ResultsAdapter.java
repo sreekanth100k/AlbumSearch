@@ -1,5 +1,8 @@
 package com.android.myapplication;
 
+import android.content.AsyncQueryHandler;
+import android.content.Context;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +27,7 @@ import java.util.TimeZone;
 
 public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultHolder> {
     private List<Results> results = new ArrayList<>();
+    private Context mApplicationContext,mActivityContext;
 
 
     @NonNull
@@ -40,9 +44,16 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultHo
         return position;
     }
 
+
+
     @Override
     public int getItemViewType(int position) {
         return position;
+    }
+
+    public void setContext(Context iApplicationContext, Context iActivityContext){
+        mApplicationContext = iApplicationContext;
+        mActivityContext    =   iActivityContext;
     }
 
     @Override
@@ -64,7 +75,26 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultHo
         holder.isInCartCb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                result.setInCart(b);
+                CartItem cartItem = new CartItem();
+                cartItem.setArtistName(result.getArtistName());
+                cartItem.setCollectionName(result.getCollectionName());
+                cartItem.setTrackName(result.getTrackName());
+                cartItem.setCollectionPrice(result.getCollectionPrice());
+                cartItem.setReleaseDate(result.getReleaseDate());
+                MyRepository repository = new MyRepository(mApplicationContext,mActivityContext);
+
+
+                new AsyncTask<Void, Void, Void>() {
+                    @Override
+                    protected Void doInBackground(Void... voids) {
+
+                        repository.getDbInstance().cartDAOAccess().insertTask(cartItem);
+                        return null;
+                    }
+                }.execute();
+
+
+
             }
         });
 

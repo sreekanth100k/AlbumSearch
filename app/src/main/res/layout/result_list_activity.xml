@@ -41,8 +41,12 @@
                     android:background="@android:drawable/ic_search_category_default"
                     android:layout_height="50dip"/>
 
-                <View
-                    android:layout_width="0dip"
+                <Button
+                    android:layout_width="100dip"
+                    android:text="CART"
+                    android:id="@+id/id_cart_btn"
+                    android:layout_marginLeft="3dip"
+                    android:layout_marginRight="3dip"
                     android:layout_weight="1"
                     android:layout_height="fill_parent"/>
 

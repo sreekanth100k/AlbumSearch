@@ -61,6 +61,7 @@ class MyRepository {
 
         resultsDataBase                                     =    Room.databaseBuilder(iContext,ResultsDataBase.class,DB_NAME).build();
 
+
         fetchApiResponse();
 
 
@@ -76,6 +77,18 @@ class MyRepository {
             @Override
             protected Void doInBackground(Void... voids) {
                 resultsDataBase.resultsDAOAccess().insertTask(results);
+                return null;
+            }
+        }.execute();
+
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    public void insertTaskIntoCart(final CartItem cartItem) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                resultsDataBase.cartDAOAccess().insertTask(cartItem);
                 return null;
             }
         }.execute();

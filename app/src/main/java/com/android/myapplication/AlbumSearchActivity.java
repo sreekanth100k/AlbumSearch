@@ -47,13 +47,14 @@ public class AlbumSearchActivity extends Activity {
                                           public void onClick(View view) {
                                               if(validateInput()){
                                                   //Proceed to next screen......
-                                                  Intent mainActivityIntent = new Intent(AlbumSearchActivity.this, ResultListActivity.class);
-                                                  mainActivityIntent.putExtra("ArtistName",mArtistNameEt.getText().toString().trim());
-                                                  mainActivityIntent.putExtra("TrackName",mTrackNameEt.getText().toString().trim());
-                                                  mainActivityIntent.putExtra("CollectionName",mCollectionNameEt.getText().toString().trim());
-                                                  mainActivityIntent.putExtra("CollectionPrice",mCollectionPriceEt.getText().toString().trim());
-                                                  mainActivityIntent.putExtra("ReleaseDate",mReleaseDateEt.getText().toString().trim());
-                                                  startActivityForResult(mainActivityIntent,0);
+                                                  Intent data = new Intent();
+                                                  data.putExtra("ArtistName",mArtistNameEt.getText().toString().trim());
+                                                  data.putExtra("TrackName",mTrackNameEt.getText().toString().trim());
+                                                  data.putExtra("CollectionName",mCollectionNameEt.getText().toString().trim());
+                                                  data.putExtra("CollectionPrice",mCollectionPriceEt.getText().toString().trim());
+                                                  data.putExtra("ReleaseDate",mReleaseDateEt.getText().toString().trim());
+                                                  setResult(RESULT_OK,data);
+                                                  finish();
                                               }else{
                                                   Toast.makeText(mContext,"Please fill mandatory fields",Toast.LENGTH_LONG).show();
                                               }
