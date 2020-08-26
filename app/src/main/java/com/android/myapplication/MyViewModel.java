@@ -24,7 +24,7 @@ public class MyViewModel extends AndroidViewModel {
     }
 
     public void init(Context iApplicationContext, Context iActivityContext){
-        mMyRepository   =   new MyRepository(iApplicationContext,iActivityContext);
+        mMyRepository   =   new MyRepository(iApplicationContext,iActivityContext,true);
         resultsLiveData =   mMyRepository.getResponseLiveData();
     }
 

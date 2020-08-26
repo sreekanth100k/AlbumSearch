@@ -16,8 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
-import org.w3c.dom.Text;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -81,7 +79,7 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.ResultHo
                 cartItem.setTrackName(result.getTrackName());
                 cartItem.setCollectionPrice(result.getCollectionPrice());
                 cartItem.setReleaseDate(result.getReleaseDate());
-                MyRepository repository = new MyRepository(mApplicationContext,mActivityContext);
+                MyRepository repository = new MyRepository(mApplicationContext,mActivityContext,false);
 
 
                 new AsyncTask<Void, Void, Void>() {

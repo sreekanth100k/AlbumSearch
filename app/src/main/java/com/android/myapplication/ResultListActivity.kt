@@ -132,7 +132,7 @@ public class ResultListActivity:AppCompatActivity() {
 
         mCartButton             =   findViewById(com.android.myapplication.R.id.id_cart_btn);
 
-        val repository          =   MyRepository(applicationContext, this)
+        val repository          =   MyRepository(applicationContext, this,false)
 
 
         mCartButton.setOnClickListener(View.OnClickListener {
@@ -198,7 +198,7 @@ public class ResultListActivity:AppCompatActivity() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View, position: Int, id: Long) {
                 if (position == 0) {
                     //Collection Name..
-                    var myRepository: MyRepository = MyRepository(applicationContext, view.context);
+                    var myRepository: MyRepository = MyRepository(applicationContext, view.context,false);
                     var lifeCycleOwner: LifecycleOwner = view.context as LifecycleOwner;
                     myRepository.getDbInstance().resultsDAOAccess().fetchAllResultsSortedByCollectionName().observe(lifeCycleOwner, Observer<List<Results?>> { results ->
                         val resultArrayList: java.util.ArrayList<Results?> = java.util.ArrayList<Results?>(results.size)
@@ -213,7 +213,7 @@ public class ResultListActivity:AppCompatActivity() {
                     })
                 } else if (position == 1) {
                     // track name...
-                    var myRepository: MyRepository = MyRepository(applicationContext, view.context);
+                    var myRepository: MyRepository = MyRepository(applicationContext, view.context,false);
                     var lifeCycleOwner: LifecycleOwner = view.context as LifecycleOwner;
                     myRepository.getDbInstance().resultsDAOAccess().fetchAllResultsSortedByTrackName().observe(lifeCycleOwner, Observer<List<Results?>> { results ->
                         val resultArrayList: java.util.ArrayList<Results?> = java.util.ArrayList<Results?>(results.size)
@@ -228,7 +228,7 @@ public class ResultListActivity:AppCompatActivity() {
                     })
                 } else if (position == 2) {
                     //artist name..
-                    var myRepository: MyRepository = MyRepository(applicationContext, view.context);
+                    var myRepository: MyRepository = MyRepository(applicationContext, view.context,false);
                     var lifeCycleOwner: LifecycleOwner = view.context as LifecycleOwner;
                     myRepository.getDbInstance().resultsDAOAccess().fetchAllResultsSortedByArtistName().observe(lifeCycleOwner, Observer<List<Results?>> { results ->
                         val resultArrayList: java.util.ArrayList<Results?> = java.util.ArrayList<Results?>(results.size)
@@ -243,7 +243,7 @@ public class ResultListActivity:AppCompatActivity() {
 
                 } else if (position == 3) {
                     //collection price descending..
-                    var myRepository: MyRepository = MyRepository(applicationContext, view.context);
+                    var myRepository: MyRepository = MyRepository(applicationContext, view.context,false);
                     var lifeCycleOwner: LifecycleOwner = view.context as LifecycleOwner;
                     myRepository.getDbInstance().resultsDAOAccess().fetchAllResultsSortedByCollectionPriceDescending().observe(lifeCycleOwner, Observer<List<Results?>> { results ->
                         val resultArrayList: java.util.ArrayList<Results?> = java.util.ArrayList<Results?>(results.size)

@@ -45,7 +45,7 @@ class MyRepository {
         return responseLiveData;
     }
 
-    MyRepository(Context iContext,Context iActivityContext) {
+    MyRepository(Context iContext,Context iActivityContext,boolean shouldFetchResponse) {
         mActivityContext                                    =   iActivityContext;
         mContext                                            =   iContext;
         responseLiveData                                    =   new MutableLiveData();
@@ -62,7 +62,10 @@ class MyRepository {
         resultsDataBase                                     =    Room.databaseBuilder(iContext,ResultsDataBase.class,DB_NAME).build();
 
 
-        fetchApiResponse();
+        if(shouldFetchResponse) {
+
+            fetchApiResponse();
+        }
 
 
     }
@@ -172,7 +175,7 @@ class MyRepository {
             Collections.sort(resultsAfterTrackNameDupRemoval,new CustomerSortingComparator());
 
 
-            MyRepository myRepositoryObj = new MyRepository(mContext,mActivityContext);
+            MyRepository myRepositoryObj = new MyRepository(mContext,mActivityContext,false);
             String title = "This is the title of the third task";
             String description = "This is the description of the third task";
 
